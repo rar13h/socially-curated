@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Socially Curated: Local 12</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --rust:#3D1700; --rust-2:#5A2600; --cream:#E4DDD3; --mauve:#95847C; --charcoal:#202123; --ink:#14100c;
+  --paper:#F8F3EC; --ok:#3d7a52; --gold:#E9B98F;
+  --serif:'Playfair Display',Georgia,serif;
+  --label:'Bebas Neue',sans-serif;
+  --body:'Inter',sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:var(--cream);font-family:var(--body);overflow-x:hidden}
+img{max-width:100%;display:block}
+.wrap{max-width:1140px;margin:0 auto;padding:0 28px;position:relative;z-index:2}
+.eyebrow{font-family:var(--label);letter-spacing:.2em;font-size:12px;color:var(--gold)}
+a{color:inherit}
+
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.34,1.1,.64,1),transform .7s cubic-bezier(.34,1.1,.64,1)}
+.rv.on{opacity:1;transform:none}
+.rv2{transition-delay:.08s}.rv3{transition-delay:.16s}
+
+/* ============ corner-bracket "targeting frame" motif ============ */
+.frame{position:relative}
+.frame .cnr{position:absolute;width:20px;height:20px;pointer-events:none;z-index:3}
+.frame .cnr.tl{top:9px;left:9px;border-top:2px solid var(--gold);border-left:2px solid var(--gold)}
+.frame .cnr.tr{top:9px;right:9px;border-top:2px solid var(--gold);border-right:2px solid var(--gold)}
+.frame .cnr.bl{bottom:9px;left:9px;border-bottom:2px solid var(--gold);border-left:2px solid var(--gold)}
+.frame .cnr.br{bottom:9px;right:9px;border-bottom:2px solid var(--gold);border-right:2px solid var(--gold)}
+.frame.small .cnr{width:13px;height:13px}
+.frame.small .cnr.tl,.frame.small .cnr.tr{top:6px}
+.frame.small .cnr.bl,.frame.small .cnr.br{bottom:6px}
+.frame.small .cnr.tl,.frame.small .cnr.bl{left:6px}
+.frame.small .cnr.tr,.frame.small .cnr.br{right:6px}
+
+/* ============ ruler / tick-mark divider strip ============ */
+.ruler{display:flex;align-items:flex-end;justify-content:center;gap:5px;height:28px;margin:0 auto;max-width:960px;padding:0 20px;overflow:hidden}
+.ruler i{flex:none;width:2px;height:8px;background:var(--gold);opacity:.3;display:block}
+.ruler i:nth-child(4n){height:14px;opacity:.5}
+.ruler i:nth-child(8n){height:22px;opacity:.85;background:var(--cream)}
+.ruler.dim i{opacity:.18}
+.ruler.dim i:nth-child(8n){opacity:.4}
+
+/* caption label under image clusters */
+.cap{font-family:var(--serif);font-style:italic;font-size:12.5px;color:var(--mauve);text-align:center;margin:0}
+
+nav{position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:16px 28px;background:color-mix(in srgb, var(--ink) 86%, transparent);backdrop-filter:blur(14px);border-bottom:1px solid rgba(228,221,211,.1)}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-logo{height:30px;width:auto;display:block}
+.brand-name{font-family:var(--serif);font-style:italic;font-weight:600;font-size:17px;color:var(--cream);letter-spacing:.01em;white-space:nowrap}
+@media (max-width:420px){.brand-name{font-size:14px}}
+.book-logo{height:34px;width:auto;display:block;margin:0 auto 16px;opacity:.92}
+.nav-links{display:flex;align-items:center;gap:26px;font-size:13px}
+.nav-links a:not(.cta){text-decoration:none;color:rgba(228,221,211,.7);font-family:var(--label);letter-spacing:.05em}
+.nav-links a:not(.cta):hover{color:var(--gold)}
+.cta{display:inline-flex;align-items:center;gap:6px;background:var(--gold);color:var(--ink);padding:11px 22px;border-radius:2px;font-size:12.5px;letter-spacing:.06em;text-decoration:none;font-weight:600;font-family:var(--label);transition:transform .25s cubic-bezier(.34,1.4,.64,1)}
+.cta:hover{transform:translateY(-2px)}
+.cta.ghost{background:transparent;color:var(--cream);border:1px solid rgba(228,221,211,.4)}
+.cta.rustcta{background:var(--rust);color:var(--cream)}
+.mobile-toggle{display:none;background:none;border:0;padding:4px}
+@media (max-width:860px){.nav-links{display:none}.mobile-toggle{display:block}}
+
+/* ============ HERO: capture-screen equation ============ */
+.hero{position:relative;background:var(--ink);padding:34px 0 80px;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(228,221,211,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(228,221,211,.045) 1px,transparent 1px);background-size:33.33% 33.33%;pointer-events:none;z-index:0}
+.hud-row{display:flex;justify-content:space-between;align-items:center;font-family:var(--label);font-size:11px;letter-spacing:.1em;color:rgba(228,221,211,.55);margin-bottom:54px;position:relative;z-index:2}
+.hud-row .rec{color:var(--gold);display:flex;align-items:center;gap:6px}
+.hud-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);display:inline-block;animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+
+.equation{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap;position:relative;z-index:2;margin-bottom:20px}
+.eq-group{display:flex;flex-direction:column;align-items:center;gap:12px}
+.eq-cluster{position:relative;width:210px;height:210px;flex:none}
+.eq-cluster img{width:100%;height:100%;object-fit:cover;border-radius:6px;box-shadow:0 18px 40px rgba(0,0,0,.5)}
+.eq-tile{position:absolute;border-radius:6px;overflow:visible}
+.eq-tile.a{width:150px;height:190px;top:0;left:0;transform:rotate(-4deg);z-index:1}
+.eq-tile.b{width:120px;height:130px;bottom:0;right:0;transform:rotate(3deg);z-index:2}
+.eq-tile.c{width:150px;height:170px;top:6px;left:6px;transform:rotate(-3deg);z-index:1}
+.eq-tile.d{width:110px;height:120px;bottom:-4px;right:-6px;transform:rotate(4deg);z-index:2}
+.eq-op{font-family:var(--label);font-size:clamp(32px,4.4vw,54px);color:rgba(228,221,211,.4);line-height:1}
+.eq-result{display:flex;flex-direction:column;align-items:center;gap:10px}
+.result-word{font-family:var(--label);font-size:clamp(60px,11vw,168px);line-height:.85;letter-spacing:-.005em;color:var(--gold);text-shadow:0 0 60px rgba(233,185,143,.25);white-space:nowrap}
+.result-cap{color:var(--gold);opacity:.7}
+
+.hero-sub{max-width:520px;margin:44px auto 0;text-align:center;position:relative;z-index:2}
+.hero-sub p{font-size:14.5px;line-height:1.7;color:rgba(228,221,211,.62);margin:0 0 20px}
+@media (max-width:900px){.equation{gap:14px}.eq-cluster{width:160px;height:160px}.eq-tile.a{width:112px;height:142px}.eq-tile.b{width:92px;height:100px}.eq-tile.c{width:112px;height:128px}.eq-tile.d{width:84px;height:92px}}
+@media (max-width:600px){.equation{flex-direction:column}.eq-op{font-size:32px}}
+
+section{padding:100px 0;position:relative;z-index:1}
+.sec-head{max-width:620px;margin:0 auto 46px;text-align:center;position:relative;z-index:2}
+h2{font-family:var(--serif);font-weight:700;font-size:clamp(34px,5.6vw,60px);margin:10px 0 12px;letter-spacing:-.015em;line-height:1.05;color:var(--cream);overflow-wrap:break-word;word-wrap:break-word}
+@media (max-width:400px){h2{font-size:30px}}
+h2 em{font-style:italic;color:var(--gold);font-weight:600}
+.sec-head p{color:rgba(228,221,211,.65);font-size:15.5px;line-height:1.6}
+
+/* ============ services ============ */
+.track-block{margin-bottom:60px}
+.track-block:last-of-type{margin-bottom:0}
+.track-head{display:flex;align-items:center;justify-content:center;gap:16px;margin:0 0 26px}
+.track-head span{font-family:var(--serif);font-style:italic;font-weight:600;font-size:22px;color:var(--gold);white-space:nowrap}
+.track{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pcard{background:rgba(228,221,211,.04);border:1px solid rgba(228,221,211,.14);border-radius:4px;padding:30px 24px 26px;position:relative}
+.pcard .n{font-family:var(--label);font-size:12px;letter-spacing:.1em;color:var(--gold)}
+.pcard h3{font-family:var(--serif);font-weight:600;font-size:21px;margin:10px 0 4px;color:var(--cream)}
+.pcard .sub{font-family:var(--serif);font-style:italic;font-size:13px;color:var(--mauve);margin:0 0 16px}
+.pcard ul{list-style:none;margin:0 0 18px;padding:0}
+.pcard li{font-size:13px;line-height:1.85;color:rgba(228,221,211,.78);padding-left:14px;position:relative}
+.pcard li:before{content:"";position:absolute;left:0;top:10px;width:6px;height:1px;background:var(--gold)}
+.pcard .quote-btn{display:inline-block;font-family:var(--label);font-size:12px;letter-spacing:.06em;border-bottom:1px solid var(--gold);color:var(--gold);text-decoration:none;padding-bottom:2px}
+.pcard .cap{margin-top:14px;text-align:left}
+@media (max-width:900px){.track{grid-template-columns:1fr}}
+
+/* ============ portfolio: waterfall reel columns ============ */
+.tt-glyph{display:inline-block;vertical-align:-2px;color:var(--gold)}
+.reelwall{display:flex;justify-content:center;align-items:flex-start;gap:22px;padding:30px 0 10px}
+.reel-col{width:180px;height:620px;overflow:hidden;position:relative;flex:none}
+.reel-col:before,.reel-col:after{content:"";position:absolute;left:0;right:0;height:54px;z-index:4;pointer-events:none}
+.reel-col:before{top:0;background:linear-gradient(var(--ink),transparent)}
+.reel-col:after{bottom:0;background:linear-gradient(transparent,var(--ink))}
+.reel-track{display:flex;flex-direction:column;gap:18px;animation:reelUp linear infinite}
+.reel-col:nth-child(1) .reel-track{animation-duration:26s}
+.reel-col:nth-child(2) .reel-track{animation-duration:34s}
+.reel-col:nth-child(3) .reel-track{animation-duration:20s}
+.reel-col:hover .reel-track{animation-play-state:paused}
+@keyframes reelUp{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+.reel-tile{width:100%}
+.reel-tile .frame{aspect-ratio:9/16;border-radius:8px;overflow:hidden;position:relative;box-shadow:0 18px 36px rgba(0,0,0,.5)}
+.reel-tile img{width:100%;height:100%;object-fit:cover;display:block}
+.reel-tile .cap{margin-top:8px}
+.ptag{position:absolute;top:12px;left:12px;z-index:3;display:inline-flex;align-items:center;gap:4px;background:rgba(20,14,8,.62);backdrop-filter:blur(3px);color:var(--cream);font-family:var(--label);font-size:9px;letter-spacing:.06em;padding:4px 7px;border-radius:2px}
+@media (max-width:820px){.reel-col{width:150px;height:520px}}
+@media (max-width:560px){.reel-col:nth-child(3){display:none}.reelwall{gap:14px}}
+.folio-note{text-align:center;margin-top:24px;font-size:12.5px;color:rgba(228,221,211,.45)}
+
+/* ============ process ============ */
+.proc-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(228,221,211,.14);position:relative;z-index:2;border:1px solid rgba(228,221,211,.14)}
+.proc-card{background:var(--ink);padding:34px 24px}
+.proc-num{font-family:var(--label);font-size:13px;letter-spacing:.08em;color:var(--gold);margin-bottom:14px}
+.proc-card h3{font-family:var(--label);letter-spacing:.04em;font-size:15px;margin:0 0 10px;color:var(--cream)}
+.proc-card p{font-size:13px;line-height:1.65;color:rgba(228,221,211,.72);margin:0}
+@media (max-width:820px){.proc-row{grid-template-columns:1fr}}
+
+/* ============ book ============ */
+.book-shell{max-width:600px;margin:0 auto;background:rgba(228,221,211,.04);border-radius:4px;padding:40px;position:relative;border:1px solid rgba(228,221,211,.15);z-index:2}
+.field{margin-bottom:16px}
+.field label{display:block;font-family:var(--label);font-size:11px;letter-spacing:.08em;color:var(--gold);margin-bottom:7px}
+.field input,.field select,.field textarea{width:100%;border:1px solid rgba(228,221,211,.2);border-radius:3px;padding:12px 14px;font-family:var(--body);font-size:14px;background:rgba(20,14,8,.5);color:var(--cream)}
+.field input::placeholder,.field textarea::placeholder{color:rgba(228,221,211,.4)}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--gold)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.book-submit{width:100%;background:var(--gold);color:var(--ink);border:0;border-radius:2px;padding:15px;font-family:var(--label);letter-spacing:.06em;font-size:14px;cursor:pointer;transition:transform .25s ease;font-weight:600}
+.book-submit:hover{transform:translateY(-2px)}
+.book-success{display:none;align-items:center;gap:12px;background:rgba(61,122,82,.18);border:1px solid #3d7a52;border-radius:4px;padding:16px 18px;margin-top:16px;font-size:13.5px;color:var(--cream)}
+.book-success.show{display:flex;animation:pop .4s ease both}
+@keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+.check-circle{width:22px;height:22px;border-radius:50%;background:var(--ok);flex:none;display:flex;align-items:center;justify-content:center}
+@media (max-width:820px){.field-row{grid-template-columns:1fr}.book-shell{padding:26px 20px}}
+
+/* ============ founders ============ */
+.f-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:center;position:relative;z-index:2}
+.f-photo{max-width:380px;aspect-ratio:4/5;margin:0 auto;position:relative}
+.f-photo img{width:100%;height:100%;display:block;object-fit:cover;border-radius:5px}
+.f-names{margin-top:14px;text-align:center;font-family:var(--serif);font-style:italic;font-size:14.5px;color:var(--cream)}
+@media (max-width:820px){.f-grid{grid-template-columns:1fr}}
+
+/* ============ closer + footer ============ */
+.closer{position:relative;padding:110px 28px;text-align:center;overflow:hidden;z-index:1;background:var(--rust-2)}
+.closer h2{font-size:clamp(38px,7vw,84px)}
+.closer p{position:relative;max-width:44ch;margin:14px auto 30px;color:rgba(228,221,211,.82);font-size:16px;line-height:1.6;z-index:2}
+.closer .ctas{position:relative;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;z-index:2}
+
+footer{background:var(--ink);color:var(--cream);padding:56px 0 30px;text-align:center;position:relative;z-index:2;border-top:1px solid rgba(228,221,211,.1)}
+footer .ig{font-family:var(--serif);font-style:italic;font-size:24px;margin:10px 0;color:var(--cream);display:flex;align-items:center;justify-content:center;gap:8px}
+footer .email{font-size:13.5px;opacity:.65}
+footer .fine{margin-top:40px;font-size:10px;opacity:.4;letter-spacing:.12em}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand"><img class="brand-logo" src="assets/logo-source.jpeg" alt="Socially Curated" style="height:38px;border-radius:8px"><span class="brand-name">Socially Curated</span></div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#portfolio">Content</a>
+    <a href="#process">Process</a>
+    <a class="cta" href="#book">Book Us</a>
+  </div>
+  <button class="mobile-toggle" aria-label="Menu"><svg width="22" height="15" viewBox="0 0 22 15"><rect width="22" height="2" fill="#E4DDD3"/><rect y="6.5" width="22" height="2" fill="#E4DDD3"/><rect y="13" width="22" height="2" fill="#E4DDD3"/></svg></button>
+</nav>
+
+<header id="hero" class="hero">
+  <div class="wrap">
+    <div class="hud-row">
+      <span>SC&#8211;CAM // ATL, GA</span>
+      <span class="rec"><span class="hud-dot"></span> LIVE CAPTURE</span>
+      <span>ISO 200 &middot; f/2.8</span>
+    </div>
+
+    <div class="equation">
+      <div class="eq-group rv">
+        <div class="eq-cluster">
+          <div class="eq-tile a frame"><img src="assets/founders/duo-4-front-smiling.png" alt="Anum and Alyna, co-founders of Socially Curated, smiling together" style="object-position:50% 22%"></div>
+          <div class="eq-tile b frame"><img src="assets/founders/duo-3-profile-phones.png" alt="Anum and Alyna reviewing content on their phones" style="object-position:50% 26%"></div>
+        </div>
+        <p class="cap">Founders, on set</p>
+      </div>
+
+      <div class="eq-op rv">+</div>
+
+      <div class="eq-group rv rv2">
+        <div class="eq-cluster">
+          <div class="eq-tile c frame"><img src="assets/stock/creator-at-work.jpg" alt="Content creator filming on a phone gimbal" style="object-position:52% 38%"></div>
+          <div class="eq-tile d frame"><img src="assets/stock/beauty-flatlay.jpg" alt="Client product flatlay styled for content"></div>
+        </div>
+        <p class="cap">Client content, this week</p>
+      </div>
+
+      <div class="eq-op rv rv2">=</div>
+
+      <div class="eq-result rv rv3">
+        <div class="result-word">CURATED.</div>
+        <p class="cap result-cap">Every platform, on brand</p>
+      </div>
+    </div>
+
+    <div class="ruler dim"></div>
+
+    <div class="hero-sub rv">
+      <p>Full-service content creation &amp; social media management for brands, businesses, and events. Based in Atlanta, open to travel.</p>
+      <a class="cta" href="#book">Book Us</a>
+    </div>
+  </div>
+</header>
+
+<div class="ruler"></div>
+
+<section id="services" style="background:var(--charcoal)">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="eyebrow">SERVICES &amp; PRICE LIST</div>
+      <h2>What we <em>curate.</em></h2>
+      <p>Pick one piece or the full setup. Every package is scoped to what your brand actually needs, priced on request.</p>
+    </div>
+    <div class="track-block rv">
+      <div class="track-head"><span>For Brands &amp; Businesses</span></div>
+      <div class="track">
+        <div class="pcard frame">
+          <span class="n">01</span>
+          <h3>Curated Content</h3>
+          <p class="sub">content creation</p>
+          <ul><li>1 monthly content session</li><li>Edited Reels/TikToks</li><li>Trend monitoring + recommendations</li><li>Unlimited RAW photos</li><li>Monthly creative direction call</li><li>Captions + hashtag recs</li></ul>
+          <a class="quote-btn" href="#book">Get a Quote</a>
+          <p class="cap">For steady posters</p>
+        </div>
+        <div class="pcard frame">
+          <span class="n">02</span>
+          <h3>Curated Growth</h3>
+          <p class="sub">content + strategy direction</p>
+          <ul><li>2 content sessions per month</li><li>More edited Reels/TikToks</li><li>Trend monitoring + recommendations</li><li>Unlimited RAW photos</li><li>Strategic captions, hashtags + CTAs</li><li>Monthly direction call</li></ul>
+          <a class="quote-btn" href="#book">Get a Quote</a>
+          <p class="cap">For growing brands</p>
+        </div>
+        <div class="pcard frame">
+          <span class="n">03</span>
+          <h3>Curated Management</h3>
+          <p class="sub">complete socials management</p>
+          <ul><li>Full content + social strategy</li><li>Content posting/scheduling</li><li>Management of up to 3 platforms</li><li>Community engagement</li><li>Monthly performance review</li><li>Strategic captions + CTAs</li></ul>
+          <a class="quote-btn" href="#book">Get a Quote</a>
+          <p class="cap">For hands-off brands</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="track-block rv">
+      <div class="track-head"><span>For Events</span></div>
+      <div class="track">
+        <div class="pcard frame">
+          <span class="n">01</span>
+          <h3>The Moment Edit</h3>
+          <p class="sub">intimate events &amp; functions</p>
+          <ul><li>Up to 2 hours of coverage</li><li>Edited Reels/TikToks</li><li>Unlimited raw photos</li><li>Behind-the-scenes content</li><li>72-hour delivery</li></ul>
+          <a class="quote-btn" href="#book">Get a Quote</a>
+          <p class="cap">Quick, close coverage</p>
+        </div>
+        <div class="pcard frame">
+          <span class="n">02</span>
+          <h3>The Event Edit</h3>
+          <p class="sub">celebrations &amp; activations</p>
+          <ul><li>Up to 4 hours of coverage</li><li>Edited Reels/TikToks</li><li>Live Story coverage</li><li>Unlimited raw photos</li><li>48-hour delivery</li></ul>
+          <a class="quote-btn" href="#book">Get a Quote</a>
+          <p class="cap">Full-day energy</p>
+        </div>
+        <div class="pcard frame">
+          <span class="n">03</span>
+          <h3>The Fully Curated</h3>
+          <p class="sub">full event experience</p>
+          <ul><li>Up to 8 hours of coverage</li><li>Vendor + sponsor highlights</li><li>Same-day highlight reel</li><li>Live Story coverage</li><li>48-hour delivery</li></ul>
+          <a class="quote-btn" href="#book">Get a Quote</a>
+          <p class="cap">The whole production</p>
+        </div>
+      </div>
+    </div>
+
+    <p style="text-align:center;margin-top:34px;font-family:var(--serif);font-style:italic;font-size:16px;color:var(--gold)" class="rv">Need something more tailored? Let's curate a package for you.</p>
+  </div>
+</section>
+
+<div class="ruler"></div>
+
+<section id="portfolio" style="background:var(--ink)">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="eyebrow">THE FEED WE RUN FOR CLIENTS</div>
+      <h2>Instagram &amp; <em>TikTok,</em> managed.</h2>
+      <p>This is the day-to-day: content shot, edited, captioned and posted to <span style="color:var(--cream)">@sociallycurated_</span> and client accounts on Instagram <svg class="tt-glyph" width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.6"/><path d="M14.2 6.8v7.6a2.7 2.7 0 1 1-2.1-2.63V6.8h2.1Z" fill="currentColor"/><path d="M14.2 6.8c.3 1.75 1.65 3 3.1 3.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> and TikTok alike.</p>
+    </div>
+    <div class="reelwall rv">
+      <div class="reel-col">
+        <div class="reel-track">
+          <div class="reel-tile"><div class="frame small"><span class="ptag">IG &middot; REEL</span><img src="assets/founders/duo-1-sitting-back2back.png" alt="Anum and Alyna, co-founders, back to back" style="object-position:50% 24%"></div><p class="cap">Studio day</p></div>
+          <div class="reel-tile"><div class="frame small"><span class="ptag"><svg class="tt-glyph" width="11" height="11" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><path d="M14.2 6.8v7.6a2.7 2.7 0 1 1-2.1-2.63V6.8h2.1Z" fill="currentColor"/><path d="M14.2 6.8c.3 1.75 1.65 3 3.1 3.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> TIKTOK</span><img src="assets/stock/creator-at-work.jpg" alt="Creator filming content for a client" style="object-position:52% 38%"></div><p class="cap">Client shoot</p></div>
+          <div class="reel-tile"><div class="frame small"><span class="ptag">IG &middot; POST</span><img src="assets/stock/portrait-moody.jpg" alt="Moody editorial portrait for a client brand" style="object-position:35% 30%"></div><p class="cap">Editorial mood</p></div>
+          <div class="reel-tile"><div class="frame small"><span class="ptag">IG &middot; REEL</span><img src="assets/founders/duo-1-sitting-back2back.png" alt="Anum and Alyna, co-founders, back to back" style="object-position:50% 24%"></div><p class="cap">Studio day</p></div>
+          <div class="reel-tile"><div class="frame small"><span class="ptag"><svg class="tt-glyph" width="11" height="11" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><path d="M14.2 6.8v7.6a2.7 2.7 0 1 1-2.1-2.63V6.8h2.1Z" fill="currentColor"/><path d="M14.2 6.8c.3 1.75 1.65 3 3.1 3.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> TIKTOK</span><img src="assets/stock/creator-at-work.jpg" alt="Creator filming content for a client" style="object-position:52% 38%"></div><p class="cap">Client shoot</p></div>
+          <div class="reel-tile"><div class="frame small"><span class="ptag">IG &middot; POST</span><img src="assets/stock/portrait-moody.jpg" alt="Moody editorial portrait for a client brand" style="object-position:35% 30%"></div><p class="cap">Editorial mood</p></div>
+        </div>
+      </div>
+      <div class="reel-col">
+        <div class="reel-track">
+          <div class="reel-tile"><div class="frame small"><span class="ptag"><svg class="tt-glyph" width="11" height="11" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><path d="M14.2 6.8v7.6a2.7 2.7 0 1 1-2.1-2.63V6.8h2.1Z" fill="currentColor"/><path d="M14.2 6.8c.3 1.75 1.65 3 3.1 3.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> TIKTOK</span><img src="assets/founders/duo-3-profile-phones.png" alt="Anum and Alyna reviewing content together" style="object-position:50% 26%"></div><p class="cap">Reel, this week</p></div>
+          <div class="reel-tile"><div class="frame small"><span class="ptag">IG &middot; POST</span><img src="assets/stock/desk-flatlay.jpg" alt="Desk flatlay styled for a client post"></div><p class="cap">Desk flatlay</p></div>
+          <div class="reel-tile"><div class="frame small"><span class="ptag">IG &middot; REEL</span><img src="assets/founders/duo-4-front-smiling.png" alt="Anum and Alyna, co-founders, smiling" style="object-position:50% 22%"></div><p class="cap">Founder campaign</p></div>
+          <div class="reel-tile"><div class="frame small"><span class="ptag"><svg class="tt-glyph" width="11" height="11" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><path d="M14.2 6.8v7.6a2.7 2.7 0 1 1-2.1-2.63V6.8h2.1Z" fill="currentColor"/><path d="M14.2 6.8c.3 1.75 1.65 3 3.1 3.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> TIKTOK</span><img src="assets/founders/duo-3-profile-phones.png" alt="Anum and Alyna reviewing content together" style="object-position:50% 26%"></div><p class="cap">Reel, this week</p></div>
+          <div class="reel-tile"><div class="frame small"><span class="ptag">IG &middot; POST</span><img src="assets/stock/desk-flatlay.jpg" alt="Desk flatlay styled for a client post"></div><p class="cap">Desk flatlay</p></div>
+          <div class="reel-tile"><div class="frame small"><span class="ptag">IG &middot; REEL</span><img src="assets/founders/duo-4-front-smiling.png" alt="Anum and Alyna, co-founders, smiling" style="object-position:50% 22%"></div><p class="cap">Founder campaign</p></div>
+        </div>
+      </div>
+      <div class="reel-col">
+        <div class="reel-track">
+          <div class="reel-tile"><div class="frame small"><span class="ptag"><svg class="tt-glyph" width="11" height="11" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><path d="M14.2 6.8v7.6a2.7 2.7 0 1 1-2.1-2.63V6.8h2.1Z" fill="currentColor"/><path d="M14.2 6.8c.3 1.75 1.65 3 3.1 3.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> TIKTOK</span><img src="assets/stock/hero-portrait.jpg" alt="Portrait shot on location for a client" style="object-position:50% 24%"></div><p class="cap">On location</p></div>
+          <div class="reel-tile"><div class="frame small"><span class="ptag">IG &middot; CAROUSEL</span><img src="assets/stock/beauty-flatlay.jpg" alt="Beauty product flatlay for a client carousel"></div><p class="cap">Product drop</p></div>
+          <div class="reel-tile"><div class="frame small"><span class="ptag">IG &middot; REEL</span><img src="assets/founders/duo-2-standing-back2back.png" alt="Anum and Alyna, co-founders, standing back to back" style="object-position:50% 20%"></div><p class="cap">Founders, together</p></div>
+          <div class="reel-tile"><div class="frame small"><span class="ptag"><svg class="tt-glyph" width="11" height="11" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><path d="M14.2 6.8v7.6a2.7 2.7 0 1 1-2.1-2.63V6.8h2.1Z" fill="currentColor"/><path d="M14.2 6.8c.3 1.75 1.65 3 3.1 3.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> TIKTOK</span><img src="assets/stock/hero-portrait.jpg" alt="Portrait shot on location for a client" style="object-position:50% 24%"></div><p class="cap">On location</p></div>
+          <div class="reel-tile"><div class="frame small"><span class="ptag">IG &middot; CAROUSEL</span><img src="assets/stock/beauty-flatlay.jpg" alt="Beauty product flatlay for a client carousel"></div><p class="cap">Product drop</p></div>
+          <div class="reel-tile"><div class="frame small"><span class="ptag">IG &middot; REEL</span><img src="assets/founders/duo-2-standing-back2back.png" alt="Anum and Alyna, co-founders, standing back to back" style="object-position:50% 20%"></div><p class="cap">Founders, together</p></div>
+        </div>
+      </div>
+    </div>
+    <p class="folio-note rv">Content loops continuously, styled to show the range. Real client work coming soon.</p>
+  </div>
+</section>
+
+<div class="ruler"></div>
+
+<section id="process" style="background:var(--charcoal)">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="eyebrow">HOW IT WORKS</div>
+      <h2>What to expect, <em>working with us.</em></h2>
+      <p>No guesswork, no scramble. Here's how a project actually moves, frame by frame.</p>
+    </div>
+    <div class="proc-row rv">
+      <div class="proc-card"><div class="proc-num">F01 / 04</div><h3>DISCOVERY CALL</h3><p>We learn your brand, your goals, and what "curated" should look like for you.</p></div>
+      <div class="proc-card"><div class="proc-num">F02 / 04</div><h3>CREATIVE DIRECTION</h3><p>A content plan and shoot schedule built around your actual calendar.</p></div>
+      <div class="proc-card"><div class="proc-num">F03 / 04</div><h3>SHOOT &amp; EDIT</h3><p>We capture and edit, platform-ready, on-brand, never generic.</p></div>
+      <div class="proc-card"><div class="proc-num">F04 / 04</div><h3>DELIVER &amp; REVIEW</h3><p>Content lands on time, with a monthly check-in on what's working.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="ruler"></div>
+
+<section id="book" style="background:var(--ink)">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <img class="book-logo" src="assets/logo-source.jpeg" alt="Socially Curated" style="height:44px;border-radius:8px">
+      <div class="eyebrow">BOOK US</div>
+      <h2>Let's get you <em>curated.</em></h2>
+      <p>Tell us a bit about your brand or event and we'll follow up with a custom scope.</p>
+    </div>
+    <div class="book-shell rv">
+      <form id="bookForm" onsubmit="return false">
+        <div class="field-row">
+          <div class="field"><label for="scName">Full Name</label><input id="scName" required placeholder="Jordan Ellis"></div>
+          <div class="field"><label for="scEmail">Email</label><input id="scEmail" type="email" required placeholder="you@brand.com"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="scBrand">Business / Brand Name</label><input id="scBrand" placeholder="Your brand name"></div>
+          <div class="field"><label for="scService">Interested In</label>
+            <select id="scService">
+              <option>Curated Content</option>
+              <option>Curated Growth</option>
+              <option>Curated Management</option>
+              <option>The Moment Edit</option>
+              <option>The Event Edit</option>
+              <option>The Fully Curated</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><label for="scMsg">Tell us about your project</label><textarea id="scMsg" rows="4" placeholder="What are you looking to curate?"></textarea></div>
+        <button class="book-submit" type="submit">Request to Book</button>
+        <div class="book-success" id="bookSuccess"><span class="check-circle"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M3 8l3.5 3.5L13 4.5"/></svg></span>Thanks, this is a demo form. In the real site this sends straight to ask.sociallycurated@gmail.com.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<div class="ruler"></div>
+
+<section id="founders" style="background:var(--charcoal)">
+  <div class="wrap f-grid">
+    <div class="rv">
+      <div class="f-photo frame">
+        <img src="assets/founders/duo-2-standing-back2back.png" alt="Anum and Alyna, co-founders of Socially Curated, standing back to back" style="object-position:50% 20%">
+      </div>
+      <div class="f-names">Anum &amp; Alyna, Co-Founders</div>
+      <p class="cap">Co-founders, Atlanta</p>
+    </div>
+    <div class="rv">
+      <div class="eyebrow">ABOUT</div>
+      <h2>Meet the <em>curators.</em></h2>
+      <p style="max-width:44ch;line-height:1.7;font-size:15px;margin-top:14px;color:rgba(228,221,211,.75)">Anum and Alyna built Socially Curated to be the creative partner brands actually want to work with: thoughtful strategy, elevated content, and a social presence that feels intentional from the first post.</p>
+      <a class="cta" style="margin-top:22px" href="#book">Work With Us</a>
+    </div>
+  </div>
+</section>
+
+<div class="closer">
+  <div class="eyebrow rv" style="position:relative;z-index:2">READY WHEN YOU ARE</div>
+  <h2 class="rv rv2">Let's get your brand <em>curated.</em></h2>
+  <p class="rv rv3">Tell us about your brand and we'll come back with a custom scope. No cookie-cutter packages.</p>
+  <div class="ctas rv rv3">
+    <a class="cta" style="background:var(--cream)" href="#book">Book Us</a>
+    <a class="cta ghost" href="https://instagram.com/sociallycurated_" target="_blank" rel="noopener">@sociallycurated_ <svg class="tt-glyph" width="12" height="12" viewBox="0 0 24 24" fill="none" style="color:var(--cream)"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><path d="M14.2 6.8v7.6a2.7 2.7 0 1 1-2.1-2.63V6.8h2.1Z" fill="currentColor"/><path d="M14.2 6.8c.3 1.75 1.65 3 3.1 3.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></a>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="eyebrow" style="color:var(--mauve)">SOCIALLY CURATED</div>
+    <div class="ig">@sociallycurated_ <svg class="tt-glyph" width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.6"/><path d="M14.2 6.8v7.6a2.7 2.7 0 1 1-2.1-2.63V6.8h2.1Z" fill="currentColor"/><path d="M14.2 6.8c.3 1.75 1.65 3 3.1 3.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+    <div class="email">ask.sociallycurated@gmail.com</div>
+    <div class="fine">LOCAL 12 &middot; CAPTURE SCREEN / MOODBOARD</div>
+  </div>
+</footer>
+
+<script>
+// inject corner-bracket targeting marks onto every .frame element
+document.querySelectorAll('.frame').forEach(function(el){
+  ['tl','tr','bl','br'].forEach(function(pos){
+    var i = document.createElement('i');
+    i.className = 'cnr ' + pos;
+    el.appendChild(i);
+  });
+});
+
+// generate ruler tick-mark strips
+document.querySelectorAll('.ruler').forEach(function(r){
+  for (var n = 0; n < 70; n++){ r.appendChild(document.createElement('i')); }
+});
+
+// scroll reveal
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); } });
+}, {threshold:.14});
+document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+
+// demo form success
+document.getElementById('bookForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  document.getElementById('bookSuccess').classList.add('show');
+});
+</script>
+</body>
+</html>
