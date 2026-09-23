@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Socially Curated — Mockup A</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{
+  --rust:#3D1700; --cream:#E4DDD3; --mauve:#95847C; --charcoal:#202123;
+  --paper:#F7F2EB;
+  --serif:'Playfair Display',Georgia,serif;
+  --label:'Bebas Neue',sans-serif;
+  --body:'Inter',sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--charcoal);font-family:var(--body);overflow-x:hidden}
+img{max-width:100%;display:block}
+.wrap{max-width:1180px;margin:0 auto;padding:0 32px}
+.eyebrow{font-family:var(--label);letter-spacing:.18em;font-size:13px;color:var(--rust)}
+a{color:inherit}
+
+/* ---------- reveal ---------- */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.rv.on{opacity:1;transform:none}
+
+/* ---------- nav ---------- */
+nav{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:18px 32px;background:color-mix(in srgb, var(--paper) 88%, transparent);backdrop-filter:blur(14px);border-bottom:1px solid color-mix(in srgb, var(--charcoal) 10%, transparent)}
+.nav-logo{height:38px}
+.nav-links{display:flex;align-items:center;gap:30px;font-family:var(--label);font-size:14px;letter-spacing:.08em}
+.nav-links a{text-decoration:none;opacity:.75;transition:opacity .2s}
+.nav-links a:hover{opacity:1}
+.nav-ig{background:var(--rust);color:var(--cream);padding:6px 14px;border-radius:99px;font-size:12px}
+.cta{display:inline-flex;align-items:center;gap:8px;background:var(--rust);color:var(--cream);border:1px solid var(--rust);padding:13px 26px;border-radius:99px;font-family:var(--label);letter-spacing:.08em;font-size:14px;text-decoration:none;cursor:pointer;transition:transform .2s ease,background .2s ease}
+.cta:hover{transform:translateY(-2px);background:#4d1e02}
+.cta.ghost{background:transparent;color:var(--charcoal);border-color:color-mix(in srgb, var(--charcoal) 30%, transparent)}
+.mobile-toggle{display:none;background:none;border:0;cursor:pointer}
+@media (max-width:860px){.nav-links{display:none}.mobile-toggle{display:block}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding:64px 32px 0;overflow:hidden}
+.hero-eyebrow{text-align:center;margin-bottom:8px}
+.hero-split{position:relative;display:grid;place-items:center;margin:8px auto 0;max-width:1100px}
+.hero-photo{position:relative;width:min(560px,72vw);aspect-ratio:4/5;border-radius:6px;overflow:hidden;box-shadow:0 40px 90px rgba(61,23,0,.28)}
+.hero-photo img{width:100%;height:100%;object-fit:cover}
+.hero-word{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:3}
+.hw-script{font-family:var(--serif);font-style:italic;font-weight:600;font-size:clamp(58px,11vw,132px);color:var(--rust);position:absolute;left:2%;top:8%;text-shadow:0 2px 14px rgba(228,221,211,.5)}
+.hw-block{font-family:var(--label);font-weight:400;font-size:clamp(64px,15vw,180px);letter-spacing:.01em;color:var(--charcoal);position:absolute;right:-2%;bottom:6%;line-height:.8;-webkit-text-stroke:2px var(--cream)}
+.hero-tagline{text-align:center;margin:26px auto 6px;max-width:44ch;font-family:var(--serif);font-style:italic;font-size:22px;color:var(--rust)}
+.hero-sub{text-align:center;margin:0 auto 30px;max-width:52ch;color:color-mix(in srgb, var(--charcoal) 70%, transparent);font-size:16px;line-height:1.6}
+.hero-ctas{display:flex;gap:14px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.hero-founders{text-align:center;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:color-mix(in srgb, var(--charcoal) 55%, transparent);margin-bottom:56px}
+
+/* ---------- stats ---------- */
+.stats{background:var(--charcoal);color:var(--cream);padding:26px 0}
+.stats-row{display:flex;justify-content:center;gap:0;flex-wrap:wrap}
+.stat{padding:10px 34px;border-right:1px solid rgba(228,221,211,.18);text-align:center}
+.stat:last-child{border-right:0}
+.stat b{display:block;font-family:var(--serif);font-style:italic;font-size:19px;font-weight:600;color:#E9B98F}
+.stat span{font-family:var(--label);font-size:11px;letter-spacing:.12em;opacity:.75}
+
+/* ---------- section shell ---------- */
+section{padding:96px 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:44px;flex-wrap:wrap}
+h2{font-family:var(--serif);font-weight:600;font-size:clamp(32px,4.4vw,52px);margin:6px 0 0;letter-spacing:-.01em}
+h2 i{color:var(--rust);font-weight:600}
+.sec-note{max-width:40ch;font-size:15px;color:color-mix(in srgb, var(--charcoal) 65%, transparent);line-height:1.6}
+
+/* ---------- filmstrip ---------- */
+.filmstrip-wrap{background:var(--charcoal);color:var(--cream)}
+.reel{position:relative;border-top:14px solid var(--rust);border-bottom:14px solid var(--rust);background:repeating-linear-gradient(90deg,var(--rust) 0 16px,transparent 16px 40px) top/100% 14px no-repeat,repeating-linear-gradient(90deg,var(--rust) 0 16px,transparent 16px 40px) bottom/100% 14px no-repeat,var(--charcoal);padding:22px 0}
+.reel-hint{text-align:center;font-family:var(--label);font-size:11px;letter-spacing:.14em;color:var(--mauve);padding:14px 0 34px}
+.reel-stage{position:relative;height:460px;overflow:hidden;background:var(--charcoal)}
+.reel-stage canvas,.reel-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.reel-stage canvas{opacity:0;transition:opacity .4s ease}
+.reel-stage[data-ready=true] canvas{opacity:1}
+.reel-stage[data-ready=true] .reel-poster{visibility:hidden}
+.reel-wordmark{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .5s ease}
+.reel-wordmark.on{opacity:1}
+.reel-wordmark .script{font-family:var(--serif);font-style:italic;font-weight:600;font-size:34px;color:var(--cream)}
+.reel-wordmark .block{font-family:var(--label);font-size:50px;letter-spacing:.03em;color:var(--cream);margin-top:-4px}
+.reel-motion-toggle{position:absolute;z-index:3;right:20px;bottom:18px;display:flex;align-items:center;gap:9px;padding:9px 14px;border:1px solid rgba(228,221,211,.35);border-radius:99px;background:rgba(32,33,35,.55);backdrop-filter:blur(6px);color:var(--cream);font-family:var(--label);font-size:11px;letter-spacing:.08em}
+.reel-motion-toggle[hidden]{display:none}
+@media (max-width:860px){
+  .reel-stage{height:340px}
+  .reel-wordmark .script{font-size:24px}.reel-wordmark .block{font-size:34px}
+}
+
+/* ---------- toggle + packages ---------- */
+.toggle-row{display:flex;justify-content:center;margin-bottom:14px}
+.toggle{display:inline-flex;background:var(--cream);border:1px solid color-mix(in srgb, var(--charcoal) 15%, transparent);border-radius:99px;padding:5px}
+.toggle button{font-family:var(--label);letter-spacing:.08em;font-size:14px;border:0;background:none;padding:11px 26px;border-radius:99px;cursor:pointer;color:var(--charcoal);opacity:.6}
+.toggle button.on{background:var(--rust);color:var(--cream);opacity:1}
+.track{display:none}
+.track.on{display:block}
+.pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.pkg{background:#fff;border:1px solid color-mix(in srgb, var(--charcoal) 10%, transparent);border-radius:16px;padding:30px 26px;display:flex;flex-direction:column;transition:transform .25s ease,box-shadow .25s ease}
+.pkg:hover{transform:translateY(-6px);box-shadow:0 24px 50px rgba(61,23,0,.14)}
+.pkg .tag{font-family:var(--label);font-size:12px;letter-spacing:.1em;color:var(--rust);margin-bottom:10px}
+.pkg h3{font-family:var(--serif);font-weight:600;font-size:26px;margin:0 0 6px}
+.pkg .desc{font-style:italic;color:var(--mauve);font-size:14px;margin-bottom:18px;font-family:var(--serif)}
+.pkg ul{list-style:none;margin:0 0 24px;padding:0;flex:1}
+.pkg li{font-size:13.5px;line-height:1.7;padding-left:18px;position:relative;color:color-mix(in srgb, var(--charcoal) 78%, transparent)}
+.pkg li:before{content:"—";position:absolute;left:0;color:var(--rust)}
+.pkg .quote-btn{text-align:center;font-family:var(--label);font-size:13px;letter-spacing:.08em;border:1.5px solid var(--charcoal);border-radius:99px;padding:12px;text-decoration:none;color:var(--charcoal);transition:background .2s ease,color .2s ease}
+.pkg .quote-btn:hover{background:var(--charcoal);color:var(--cream)}
+.pkg.hi{border-color:var(--rust);position:relative}
+.pkg.hi:before{content:"MOST BOOKED";position:absolute;top:-13px;left:26px;background:var(--rust);color:var(--cream);font-family:var(--label);font-size:10.5px;letter-spacing:.1em;padding:4px 12px;border-radius:99px}
+.extras{margin-top:26px;background:var(--cream);border-radius:16px;padding:22px 28px;display:flex;gap:24px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.extras-list{display:flex;gap:26px;flex-wrap:wrap;font-size:13.5px}
+.extras-list b{font-family:var(--serif);display:block;font-size:14px}
+.tailor{text-align:center;margin-top:30px;font-family:var(--serif);font-style:italic;font-size:18px;color:var(--rust)}
+
+/* ---------- founders ---------- */
+.founders{background:var(--mauve);color:#2a1e18}
+.f-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.f-photo-single{border-radius:8px;overflow:hidden;box-shadow:0 24px 50px rgba(32,23,15,.25);max-width:420px;aspect-ratio:4/5;margin:0 auto}
+.f-photo-single img{width:100%;height:100%;display:block;object-fit:cover;object-position:top}
+.f-names{font-family:var(--serif);font-style:italic;font-weight:600;font-size:15px;margin-top:10px;text-align:center}
+
+/* ---------- footer ---------- */
+footer{background:var(--rust);color:var(--cream);padding:80px 0 40px;text-align:center}
+footer .ig{font-family:var(--serif);font-style:italic;font-size:34px;margin:16px 0}
+footer .email{font-family:var(--label);letter-spacing:.06em;font-size:15px;opacity:.85}
+footer .fine{margin-top:50px;font-size:11px;opacity:.5;font-family:var(--label);letter-spacing:.1em}
+
+@media (max-width:860px){
+  .wrap{padding:0 22px}
+  .pkg-grid{grid-template-columns:1fr}
+  .f-grid{grid-template-columns:1fr}
+  .f-photo-single{max-width:300px}
+  .stats-row{gap:6px}
+  .stat{padding:8px 16px;border-right:0}
+  .hw-block{font-size:clamp(48px,20vw,90px)}
+  .hw-script{font-size:clamp(38px,15vw,70px)}
+  .extras{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <img class="nav-logo" src="assets/logo-wordmark-cream.png" style="filter:invert(1) brightness(0) saturate(0) invert(0);display:none" alt="">
+  <img class="nav-logo" src="assets/logo-source.jpeg" style="border-radius:8px" alt="Socially Curated">
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#work">Work</a>
+    <a href="#founders">About</a>
+    <span class="nav-ig">@sociallycurated_</span>
+    <a class="cta" href="#contact">Get a Quote</a>
+  </div>
+  <button class="mobile-toggle" aria-label="Menu"><svg width="26" height="18" viewBox="0 0 26 18"><rect width="26" height="2" fill="#202123"/><rect y="8" width="26" height="2" fill="#202123"/><rect y="16" width="26" height="2" fill="#202123"/></svg></button>
+</nav>
+
+<header class="hero">
+  <div class="hero-eyebrow eyebrow">BRANDS · BUSINESSES · EVENTS</div>
+  <div class="hero-split rv">
+    <div class="hero-photo">
+      <img src="assets/founders/duo-4-front-smiling.png" alt="Anum and Alyna, co-founders of Socially Curated">
+    </div>
+    <div class="hero-word">
+      <span class="hw-script">socially</span>
+      <span class="hw-block">CURATED</span>
+    </div>
+  </div>
+  <p class="hero-tagline">Socially inspired, strategically curated.</p>
+  <p class="hero-sub">A full-service content creation and social media management studio for brands, businesses, and events. Atlanta based, open to travel.</p>
+  <div class="hero-ctas">
+    <a class="cta" href="#contact">Get a Quote</a>
+    <a class="cta ghost" href="#services">See Packages</a>
+  </div>
+  <div class="hero-founders">Founded by Anum &amp; Alyna</div>
+</header>
+
+<div class="stats">
+  <div class="stats-row wrap" style="padding:0">
+    <div class="stat"><b>2</b><span>CREATIVE DIRECTORS</span></div>
+    <div class="stat"><b>ATL</b><span>BASED · OPEN TO TRAVEL</span></div>
+    <div class="stat"><b>Brands</b><span>+ BUSINESSES + EVENTS</span></div>
+    <div class="stat"><b>Custom</b><span>SCOPED PACKAGES</span></div>
+  </div>
+</div>
+
+<div class="filmstrip-wrap">
+  <div class="wrap" style="padding-top:70px">
+    <div class="eyebrow rv" style="color:var(--mauve)">FRAME 01</div>
+    <h2 class="rv">Our <i style="color:var(--mauve)">contact sheet.</i></h2>
+  </div>
+  <div class="reel" style="margin-top:34px">
+    <div class="reel-stage" id="reelStage" data-motion-state="loading">
+      <img class="reel-poster" src="assets/stock/reel/frame1.jpg" alt="" fetchpriority="high">
+      <canvas id="reelCanvas"></canvas>
+      <div class="reel-wordmark" id="reelWordmark"><span class="script">socially</span><span class="block">CURATED</span></div>
+      <button class="reel-motion-toggle" id="reelMotionToggle" type="button" aria-label="Pause background animation" hidden><span id="reelMotionIcon" aria-hidden="true">Ⅱ</span><span id="reelMotionLabel">Pause motion</span></button>
+    </div>
+  </div>
+  <div class="reel-hint">REAL PHOTOGRAPHY · PLACEHOLDER COPY</div>
+</div>
+
+<section id="services">
+  <div class="wrap">
+    <div class="eyebrow rv">FRAME 02</div>
+    <h2 class="rv" style="margin-bottom:36px">What we <i>curate.</i></h2>
+
+    <div class="toggle-row rv">
+      <div class="toggle">
+        <button class="on" data-track="brands">Businesses &amp; Brands</button>
+        <button data-track="events">Events</button>
+      </div>
+    </div>
+
+    <div class="track on" data-track="brands">
+      <div class="pkg-grid">
+        <div class="pkg">
+          <div class="tag">TIER 01</div>
+          <h3>Curated Content</h3>
+          <div class="desc">content creation</div>
+          <ul>
+            <li>1 monthly content session</li>
+            <li>Edited Reels/TikToks</li>
+            <li>Trend monitoring + recommendations</li>
+            <li>Unlimited RAW photos</li>
+            <li>Monthly creative direction call</li>
+            <li>Captions + hashtag recommendations</li>
+          </ul>
+          <a class="quote-btn" href="#contact">Get a Quote →</a>
+        </div>
+        <div class="pkg hi">
+          <div class="tag">TIER 02</div>
+          <h3>Curated Growth</h3>
+          <div class="desc">content + strategy direction</div>
+          <ul>
+            <li>2 content sessions per month</li>
+            <li>More edited Reels/TikToks</li>
+            <li>Trend monitoring + recommendations</li>
+            <li>Unlimited RAW photos</li>
+            <li>Monthly creative direction call</li>
+            <li>Strategic captions, hashtags + CTAs</li>
+          </ul>
+          <a class="quote-btn" href="#contact">Get a Quote →</a>
+        </div>
+        <div class="pkg">
+          <div class="tag">TIER 03</div>
+          <h3>Curated Management</h3>
+          <div class="desc">complete socials management</div>
+          <ul>
+            <li>Full content + social strategy</li>
+            <li>Strategic captions, hashtags + CTAs</li>
+            <li>Content posting/scheduling</li>
+            <li>Management of up to 3 platforms</li>
+            <li>Community engagement</li>
+            <li>Monthly performance + strategy review</li>
+          </ul>
+          <a class="quote-btn" href="#contact">Get a Quote →</a>
+        </div>
+      </div>
+      <div class="extras">
+        <div class="extras-list">
+          <div><b>Curated Extras</b>add-ons available</div>
+          <div>Paid Promotion Management</div>
+          <div>Additional Reel/TikTok</div>
+          <div>Influencer Outreach</div>
+          <div>Email Marketing Campaign</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="track" data-track="events">
+      <div class="pkg-grid">
+        <div class="pkg">
+          <div class="tag">THE MOMENT EDIT</div>
+          <h3>Intimate Events</h3>
+          <div class="desc">events &amp; functions</div>
+          <ul>
+            <li>Up to 2 hours of coverage</li>
+            <li>Edited Reels/TikToks</li>
+            <li>Unlimited raw photos</li>
+            <li>Behind-the-scenes + candid content</li>
+            <li>72-hour content delivery</li>
+          </ul>
+          <a class="quote-btn" href="#contact">Get a Quote →</a>
+        </div>
+        <div class="pkg hi">
+          <div class="tag">THE EVENT EDIT</div>
+          <h3>Large Events</h3>
+          <div class="desc">celebrations &amp; activations</div>
+          <ul>
+            <li>Up to 4 hours of coverage</li>
+            <li>Edited Reels/TikToks</li>
+            <li>Unlimited raw photos</li>
+            <li>Live Instagram Story coverage</li>
+            <li>48-hour content delivery</li>
+          </ul>
+          <a class="quote-btn" href="#contact">Get a Quote →</a>
+        </div>
+        <div class="pkg">
+          <div class="tag">THE FULLY CURATED</div>
+          <h3>Complete Coverage</h3>
+          <div class="desc">full event experience</div>
+          <ul>
+            <li>Up to 8 hours of coverage</li>
+            <li>Vendor + sponsor highlights</li>
+            <li>Live Instagram Story coverage</li>
+            <li>1 same-day highlight reel</li>
+            <li>Remaining content in 48 hours</li>
+          </ul>
+          <a class="quote-btn" href="#contact">Get a Quote →</a>
+        </div>
+      </div>
+    </div>
+
+    <p class="tailor rv">Need something more tailored? Let's curate a package for you.</p>
+  </div>
+</section>
+
+<section id="founders" class="founders">
+  <div class="wrap f-grid">
+    <div class="rv">
+      <div class="eyebrow" style="color:#2a1e18">FRAME 03</div>
+      <h2 style="color:#2a1e18">Meet the <i style="color:var(--rust)">curators.</i></h2>
+      <p style="max-width:42ch;line-height:1.7;font-size:15px;margin-top:14px">Anum and Alyna built Socially Curated to be the creative partner brands actually want to work with, thoughtful strategy, elevated content, and a social presence that feels intentional from the first post.</p>
+      <a class="cta" style="margin-top:22px;background:var(--charcoal);border-color:var(--charcoal)" href="#contact">Work With Us</a>
+    </div>
+    <div class="rv">
+      <div class="f-photo-single"><img src="assets/founders/duo-1-sitting-back2back.png" alt="Anum and Alyna, co-founders of Socially Curated"></div>
+      <div class="f-names">Anum &amp; Alyna, Co-Founders</div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="eyebrow" style="color:var(--mauve)">LET'S CURATE SOMETHING</div>
+    <div class="ig">@sociallycurated_</div>
+    <div class="email">ask.sociallycurated@gmail.com</div>
+    <div style="margin-top:30px"><a class="cta" style="background:var(--cream);color:var(--rust);border-color:var(--cream)" href="mailto:ask.sociallycurated@gmail.com">Send an Inquiry</a></div>
+    <div class="fine">MOCKUP A — EDITORIAL · SOCIALLY CURATED</div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.toggle button').forEach(function(b){
+  b.addEventListener('click', function(){
+    document.querySelectorAll('.toggle button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    var t = b.dataset.track;
+    document.querySelectorAll('.track').forEach(function(el){ el.classList.toggle('on', el.dataset.track===t); });
+  });
+});
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); } });
+}, {threshold:.15});
+document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+</script>
+
+<script src="ribbon.js"></script>
+<script>
+(function () {
+  var stage = document.getElementById('reelStage');
+  var canvas = document.getElementById('reelCanvas');
+  var toggle = document.getElementById('reelMotionToggle');
+  var wordmark = document.getElementById('reelWordmark');
+  if (!stage || !canvas || !window.FilmRibbon) return;
+
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  var renderer, seconds = reduce.matches ? 3.2 : 0, raf = 0, last = 0;
+  var visible = false, paused = reduce.matches, initialized = false, disposed = false;
+
+  function label() {
+    toggle.setAttribute('aria-label', paused ? 'Play background animation' : 'Pause background animation');
+    document.getElementById('reelMotionLabel').textContent = paused ? 'Play motion' : 'Pause motion';
+    document.getElementById('reelMotionIcon').textContent = paused ? '▷' : 'Ⅱ';
+    stage.dataset.motionState = paused ? 'paused' : 'playing';
+  }
+  function draw() { if (initialized) renderer.draw(seconds, { settled: reduce.matches && paused }); }
+  function size() {
+    if (!initialized) return;
+    var bounds = stage.getBoundingClientRect();
+    renderer.resize(bounds.width, bounds.height, Math.min(devicePixelRatio || 1, 1.5));
+    draw();
+  }
+  function tick(now) {
+    raf = 0;
+    if (disposed || paused || !visible || document.hidden || !initialized) { last = 0; return; }
+    if (last) seconds += Math.min((now - last) / 1000, .1);
+    last = now; draw();
+    raf = requestAnimationFrame(tick);
+  }
+  function schedule() {
+    cancelAnimationFrame(raf); last = 0;
+    if (initialized && !paused && visible && !document.hidden && !disposed) raf = requestAnimationFrame(tick);
+  }
+  function toggleMotion() { paused = !paused; label(); schedule(); }
+  function fallback(err) {
+    console.warn('Reel WebGL fallback:', err && err.message || err);
+    paused = true; initialized = false; cancelAnimationFrame(raf);
+    stage.dataset.motionState = 'poster'; stage.dataset.ready = 'false'; toggle.hidden = true;
+    renderer && renderer.dispose();
+  }
+
+  var reelIo = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      visible = e.intersectionRatio > .05;
+      if (visible) { wordmark.classList.add('on'); }
+      schedule();
+    });
+  }, { threshold: .05 });
+  reelIo.observe(stage);
+  var reelResize = new ResizeObserver(size);
+  reelResize.observe(stage);
+  toggle.addEventListener('click', toggleMotion);
+  document.addEventListener('visibilitychange', schedule);
+  reduce.addEventListener('change', function () {
+    if (reduce.matches) { paused = true; seconds = Math.max(seconds, 1.32); label(); draw(); schedule(); }
+  });
+  canvas.addEventListener('webglcontextlost', function (e) { e.preventDefault(); fallback(new Error('Graphics context interrupted')); });
+
+  (async function start() {
+    try {
+      renderer = new FilmRibbon(canvas, { dark: true, image: 'assets/reel-atlas.webp' });
+      await renderer.ready;
+      if (disposed) return;
+      initialized = true; size(); stage.dataset.ready = 'true'; toggle.hidden = false; label(); schedule();
+    } catch (err) { fallback(err); }
+  })();
+})();
+</script>
+</body>
+</html>
